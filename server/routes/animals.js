@@ -13,9 +13,7 @@ router.route('/')
       if(err){
         return res.status(400).send(err);
       }
-      Animal.find({}, (err, animal) => {
-        res.status(err ? 400 : 200).send(err || animal);
-      });
+      res.send(animal);
     });
   });
 
@@ -46,7 +44,6 @@ router.route('/:id')
         return res.status(400).send(err);
       }
       // else { animal.save(); }
-
       Animal.find({}, (err,animals) =>{
         res.status(err ? 400 : 200).send(err || animals);
       }).populate('owner')

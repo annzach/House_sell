@@ -14,11 +14,16 @@ router.route('/')
       if(err){
         return res.status(400).send(err);
       }
-      Person.find({}, (err, people) => {
-        res.status(err ? 400 : 200).send(err || people);
-      });
+      res.send(person)
     });
   });
+
+router.route('/email/:www')
+.get((req, res) => {
+  Person.findOne({email: req.params.www}, (err, person) => {
+    res.status(err ? 400 : 200).send(err || person);
+  });
+})
 
 router.route('/:id')
   .get((req, res) => {
@@ -37,13 +42,15 @@ router.route('/:id')
     });
   })
   .put((req, res) => {
-    Person.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}, (err, person) => {
+    Person.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true}, (err,person) => {
       if(err){
         return res.status(400).send(err);
       }
+      // res.send(person)
       Person.find({}, (err,people) =>{
+        console.log('people:', people)
         res.status(err ? 400 : 200).send(err || people);
-      });
+      })
     });
   })
 

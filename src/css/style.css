@@ -6,3 +6,11 @@
 h1{
   margin-top: -40px;
 }
+
+.trFont{
+  font-size: 16px;
+}
+
+td {
+  vertical-align: middle;
+}

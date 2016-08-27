@@ -1,51 +1,113 @@
 import React, { Component } from 'react';
+import HouseStore from '../stores/HouseStore';
+import ListHouse from './ListHouse';
+import BuyerActions from '../actions/BuyerActions';
+import { Link } from 'react-router';
+import SearchPage from './SearchPage';
 
-// import SearchBuy from './SearchBuy';
-// import BuyActions from '../actions/BuyActions';
-// import BuyStore from '../stores/BuyStore';
-// import BuyList from './BuyList';
 // import NewBuyForm from './NewBuyForm';
 // import GetAllBuys from './GetAllBuys';
 
 
-export default class BuysPage extends Component {
+export default class BuyPage extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      Buys: []
+      houses: HouseStore.getAll()
     }
 
     this._onChange = this._onChange.bind(this);
   }
 
   componentDidMount() {
-    BuyActions.getAllBuys();
-    BuyStore.startListening(this._onChange);
+    BuyerActions.getAllHouses();
+    HouseStore.startListening(this._onChange);
   }
 
   componentWillUnmount() {
-    BuyStore.stopListening(this._onChange);
+    HouseStore.stopListening(this._onChange);
   }
 
   _onChange() {
     this.setState({
-      Buys: BuyStore.getAll()
+      houses: HouseStore.getAll()
     });
   }
 
   render() {
-    let {Buys} = this.state;
+    let {houses} = this.state;
+    const ListHouses = houses.map(house => {
+      return (
+        <ListHouse key={house._id} {...house} />
+      )
+    })
 
     return (
-      <div className="container">
-        <h1 className='text-center'>Buys Information</h1>
-        <NewBuyForm />
-        <GetAllBuys Buys={Buys}/>
+      <div>
+        <nav className="navbar navbar-default">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span className="sr-only">Toggle navigation</span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+            </div>
+            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <form className="navbar-form navbar-left">
+                <div className="form-group">
+                  <input type="text" className="form-control" placeholder="Pleasanton, CA"/>
+                </div>
+                <button type="submit" className="btn btn-default"><Link to="buy/Search">Search</Link></button>
+              </form>
+              <ul className="nav navbar-nav">
+                <li className="dropdown">
+                  <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Price <span className="caret"></span></a>
+                  <ul className="dropdown-menu">
+                    <li><a href="#">200k-300k</a></li>
+                    <li><a href="#">301k-400k</a></li>
+                    <li><a href="#">401k-500k</a></li>
+                    <li><a href="#">501k-600k</a></li>
+                  </ul>
+                </li>
+              </ul>
+              <ul className="nav navbar-nav">
+                <li className="dropdown">
+                  <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bedroom<span className="caret"></span></a>
+                  <ul className="dropdown-menu">
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">6</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div>
+        <div className="container">
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Picture</th>
+                <th>Address</th>
+                <th>Sqft</th>
+                <th>Bedroom</th>
+                <th>Bathroom</th>
+                <th>Price</th>
+                <th>Order</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ListHouses}
+            </tbody>
+          </table>
+        </div>
       </div>
+    </div>
     )
   }
 }
-
-// <SearchBuy />
-// <BuyList Buys={Buys} />

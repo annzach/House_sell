@@ -17,4 +17,3 @@ export default class Welcome extends Component {
     )
   }
 }
-// <p className='text-center'></p>

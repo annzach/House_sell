@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.use('/people', require('./people'));
-router.use('/animals', require('./animals'));
+router.use('/buyers', require('./buyers'));
+router.use('/houses', require('./houses'));
 
 
 module.exports = router;

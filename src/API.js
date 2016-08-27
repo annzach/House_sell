@@ -2,34 +2,36 @@ import axios from 'axios';
 import ServerActions from './actions/ServerActions';
 
 const API = {
-  getAllClients(){
-    axios.get('/api/people')
+  getAllHouses(){
+    axios.get('/api/houses')
       .then(res => res.data)
-      .then(ServerActions.receiveClients)
+      .then(ServerActions.receiveHouses)
       .catch(console.error);
   },
-  createClient(person) {
-    axios.post('/api/people', person)
+  createHouse(person) {
+    axios.post('/api/houses', house)
       .then(res => res.data)
-      .then(ServerActions.receiveOneClient)
+      .then(ServerActions.receiveOneHouse)
       .catch(console.error);
   },
-  lookup(email){
-    axios.get(`/api/people/email/${email}`)
+  // lookup(email){
+  //   axios.get(`/api/houses/email/${email}`)
+  //     .then(res => res.data)
+  //     .then(ServerActions.receiveLookupPeople)
+  //     .catch(console.error);
+  // },
+  editHouse(id, house){
+    axios.put(`/api/houses/${id}`, house)
       .then(res => res.data)
-      .then(ServerActions.receiveLookupPeople)
+      .then(ServerActions.receiveHouses)
       .catch(console.error);
   },
-  editClient(id, client){
-    axios.put(`/api/people/${id}`, client)
-      .then(res => res.data)
-      .then(ServerActions.receiveClients)
-      .catch(console.error);
+  deleteHouse(id) {
+    axios.delete(`/api/houses/${id}`)
+    .then(this.getAllHouses())
   },
-  deleteClient(id) {
-    axios.delete(`/api/people/${id}`)
-    .then(this.getAllClients())
-  },
+
+  
   getAllAnimals(){
     axios.get('/api/animals')
       .then(res => res.data)

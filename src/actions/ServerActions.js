@@ -1,21 +1,21 @@
 import AppDispatcher from '../AppDispatcher';
 
 const ServerActions = {
-  receiveClients(people) {
+  receiveHouses(houses) {
     AppDispatcher.dispatch({
-      type: 'RECEIVE_CLIENTS',
-      people
+      type: 'RECEIVE_HOUSES',
+      houses
     })
   },
-  receiveOneClient(person) {
+  receiveOneHouse(house) {
     AppDispatcher.dispatch({
-      type: 'RECEIVE_ONE_CLIENT',
-      person
+      type: 'RECEIVE_ONE_HOUSE',
+      house
     })
   },
-  receiveLookupPeople(person){
+  receiveLookupHouses(house){
     AppDispatcher.dispatch({
-      type: 'RECEIVE_LOOKUP_PEOPLE',
+      type: 'RECEIVE_LOOKUP_HOUSES',
       person
     })
   },

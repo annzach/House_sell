@@ -2,25 +2,25 @@ import { EventEmitter } from 'events'
 import AppDispatcher from '../AppDispatcher'
 
 
-let _animals = [];
+let _houses = [];
 
-class AnimalStore extends EventEmitter {
+class HouseStore extends EventEmitter {
   constructor(){
     super();
 
     AppDispatcher.register(action =>{
       switch (action.type) {
-        case 'RECEIVE_ANIMALS':
-          _animals = action.animals;
+        case 'RECEIVE_HOUSES':
+          _houses = action.houses;
           this.emit('CHANGE');
           break;
-        case 'RECEIVE_ONE_ANIMAL':
-          var { animal } = action;
-          _animals.push(animal);
+        case 'RECEIVE_ONE_HOUSE':
+          var { house } = action;
+          _houses.push(house);
           this.emit('CHANGE');
           break;
         // case 'RECEIVE_LOOKUP_PEOPLE':
-        //   _animals = action.animal;
+        //   _houses = action.house;
         //   this.emit('CHANGE');
         //   break;
       }
@@ -36,8 +36,8 @@ class AnimalStore extends EventEmitter {
   }
 
   getAll() {
-    return _animals;
+    return _houses;
   }
 }
 
-export default new AnimalStore();
+export default new HouseStore();
